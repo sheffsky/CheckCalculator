@@ -35,7 +35,7 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/newItemName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="12dp" />
 
     <EditText
         android:layout_width="70dp"
@@ -54,7 +54,7 @@
         android:id="@+id/textView3"
         android:layout_below="@+id/newItemPrice"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="12dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -62,7 +62,8 @@
         android:text="@string/addButtonHeader"
         android:id="@+id/okButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <NumberPicker
         android:layout_width="wrap_content"

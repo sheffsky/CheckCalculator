@@ -19,7 +19,8 @@
         <activity
             android:name="ru.sheffsky.barcounter.AddItemActivity"
             android:theme="@android:style/Theme.Dialog"
-            android:label="@string/title_activity_add_item" >
+            android:label="@string/title_activity_add_item"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
