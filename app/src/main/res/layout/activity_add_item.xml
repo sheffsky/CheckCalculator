@@ -25,7 +25,8 @@
         android:layout_centerHorizontal="true"
         android:elegantTextHeight="true"
         android:inputType="textCapSentences"
-        android:outlineProvider="background" />
+        android:outlineProvider="background"
+        android:selectAllOnFocus="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,7 +45,8 @@
         android:id="@+id/newItemPrice"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true" />
 
     <TextView
         android:layout_width="wrap_content"

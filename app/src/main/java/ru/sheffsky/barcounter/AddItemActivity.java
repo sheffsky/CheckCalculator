@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+
 import ru.sheffsky.barcounter.db.ItemContract;
 import ru.sheffsky.barcounter.db.ItemDbHelper;
 
@@ -34,7 +35,7 @@ public class AddItemActivity extends Activity {
             }
         });
 
-        if (getIntent().getIntExtra("itemId",-1) > 0) {
+        if (getIntent().getIntExtra("itemId", -1) > 0) {
             EditText itemNameEdit = (EditText) findViewById(R.id.newItemName);
             itemNameEdit.setText(getIntent().getStringExtra("itemName"));
 
@@ -56,9 +57,15 @@ public class AddItemActivity extends Activity {
         EditText newItemName = (EditText) findViewById(R.id.newItemName);
         String itemName = newItemName.getText().toString();
 
-        EditText newItemPrice = (EditText) findViewById(R.id.newItemPrice);
-        Float itemPrice = Float.parseFloat(newItemPrice.getText().toString());
+        Float itemPrice;
 
+        EditText newItemPrice = (EditText) findViewById(R.id.newItemPrice);
+
+        try {
+            itemPrice = Float.parseFloat(newItemPrice.getText().toString());
+        } catch (NumberFormatException e) {
+            itemPrice = (float) 0;
+        }
         NumberPicker newItemQty = (NumberPicker) findViewById(R.id.newItemQty);
         Integer itemQty = newItemQty.getValue();
 
@@ -67,8 +74,8 @@ public class AddItemActivity extends Activity {
         ContentValues values = new ContentValues();
 
         values.clear();
-        if (getIntent().getIntExtra("itemId",-1) > 0) {
-            values.put(ItemContract.Columns._ID, getIntent().getIntExtra("itemId",-1));
+        if (getIntent().getIntExtra("itemId", -1) > 0) {
+            values.put(ItemContract.Columns._ID, getIntent().getIntExtra("itemId", -1));
         }
         values.put(ItemContract.Columns.ITEM, itemName);
         values.put(ItemContract.Columns.PRICE, itemPrice);
