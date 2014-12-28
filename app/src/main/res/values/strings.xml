@@ -17,5 +17,6 @@
     <string name="deleteAllBody">Do you really want to delete all items?</string>
     <string name="updateButton">Update</string>
     <string name="emptyListMessage">List is empty.\nTap + to add something.</string>
+    <string name="updateHeader">Update</string>
 
 </resources>
