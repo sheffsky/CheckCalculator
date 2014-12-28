@@ -16,5 +16,6 @@
     <string name="deleteAllCaption">Удалить всё</string>
     <string name="updateButton">Обновить</string>
     <string name="emptyListMessage">Список пуст.\nНажмите + чтобы добавить позицию.</string>
+    <string name="updateHeader">Изменить позицию</string>
 
 </resources>
