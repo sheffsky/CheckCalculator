@@ -43,7 +43,7 @@ public class AddItemActivity extends Activity {
 
             np.setValue(getIntent().getIntExtra("itemQty", 1));
 
-            setTitle("Edit item");
+            setTitle(getString(R.string.title_activity_add_item));
 
             button.setText(getString(R.string.updateButton));
 
