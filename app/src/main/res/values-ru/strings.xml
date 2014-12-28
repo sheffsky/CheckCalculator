@@ -1,7 +1,7 @@
 <resources>
 
     <string name="action_settings">Настройки</string>
-    <string name="app_name">Калькулятор счёта</string>
+    <string name="app_name">Счёт</string>
     <string name="title_activity_add_item">Новая позиция</string>
     <string name="totalPriceText">Итого:</string>
     <string name="addButtonHeader">Добавить</string>
@@ -15,5 +15,6 @@
     <string name="deleteAllBody">Вы действительно хотите удалить все позиции?</string>
     <string name="deleteAllCaption">Удалить всё</string>
     <string name="updateButton">Обновить</string>
+    <string name="emptyListMessage">Список пуст.\nНажмите + чтобы добавить позицию.</string>
 
 </resources>
