@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,11 +36,13 @@ public class AddItemActivity extends Activity {
             }
         });
 
+        EditText itemPriceEdit = (EditText) findViewById(R.id.newItemPrice);
+        itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax("1", "999999")});
+
         if (getIntent().getIntExtra("itemId", -1) > 0) {
             EditText itemNameEdit = (EditText) findViewById(R.id.newItemName);
             itemNameEdit.setText(getIntent().getStringExtra("itemName"));
 
-            EditText itemPriceEdit = (EditText) findViewById(R.id.newItemPrice);
             itemPriceEdit.setText(getIntent().getStringExtra("itemPrice"));
 
             np.setValue(getIntent().getIntExtra("itemQty", 1));
