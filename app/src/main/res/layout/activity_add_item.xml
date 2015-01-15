@@ -23,9 +23,8 @@
         android:layout_below="@+id/textView"
         android:singleLine="true"
         android:layout_centerHorizontal="true"
-        android:elegantTextHeight="true"
         android:inputType="textCapSentences"
-        android:outlineProvider="background"
+        android:gravity="center_horizontal"
         android:selectAllOnFocus="false" />
 
     <TextView
@@ -46,6 +45,7 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:inputType="numberDecimal"
+        android:gravity="center_horizontal"
         android:selectAllOnFocus="true" />
 
     <TextView
