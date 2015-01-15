@@ -1,7 +1,7 @@
 <resources>
 
     <string name="action_settings">Настройки</string>
-    <string name="app_name">Счёт</string>
+    <string name="app_name">Бухучёт</string>
     <string name="title_activity_add_item">Новая позиция</string>
     <string name="totalPriceText">Итого:</string>
     <string name="addButtonHeader">Добавить</string>
@@ -17,5 +17,10 @@
     <string name="updateButton">Обновить</string>
     <string name="emptyListMessage">Список пуст.\nНажмите + чтобы добавить позицию.</string>
     <string name="updateHeader">Изменить позицию</string>
+    <string name="menuAbout">О программе</string>
+    <string name="title_activity_about">О программе</string>
+    <string name="aboutCaptionAuthorName">Александр Баршевский</string>
+    <string name="aboutCaptionAuthorPrep">Автор</string>
+    <string name="aboutDonatePaypalLink"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ZN44ERVH8FVE2&amp;lc=RU&amp;item_name=Sheffsky&amp;currency_code=RUB&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Задонатить на пиво</a> :)</string>
 
 </resources>

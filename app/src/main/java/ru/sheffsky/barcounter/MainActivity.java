@@ -44,6 +44,9 @@ public class MainActivity extends ListActivity {
             case R.id.action_add_item:
                 showAddNewItem();
                 return true;
+            case R.id.action_about:
+                showAboutActivity();
+                return true;
             default:
                 return false;
         }
@@ -51,6 +54,11 @@ public class MainActivity extends ListActivity {
 
     public void showAddNewItem() {
         Intent intent = new Intent(this, AddItemActivity.class);
+        startActivity(intent);
+    }
+
+    public void showAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 
@@ -116,7 +124,7 @@ public class MainActivity extends ListActivity {
         helper = new ItemDbHelper(MainActivity.this);
         sqlDB = helper.getReadableDatabase();
         cursor = sqlDB.rawQuery(sql, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
 
             BigDecimal bd = new BigDecimal(Double.toString(cursor.getFloat(0)));
             bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -128,7 +136,6 @@ public class MainActivity extends ListActivity {
         totalPriceView.setText(getString(R.string.totalPriceText) + " " + totalPrice.toString());
 
     }
-
 
 
     public void onDeleteButtonClick(final View view) {
@@ -195,7 +202,9 @@ public class MainActivity extends ListActivity {
             qty++;
         }
 
-        if (qty > 99) {return;}
+        if (qty > 99) {
+            return;
+        }
 
         String sql = String.format("UPDATE %s SET %s = %s WHERE %s = '%s'",
                 ItemContract.TABLE,
@@ -203,7 +212,6 @@ public class MainActivity extends ListActivity {
                 qty,
                 ItemContract.Columns._ID,
                 itemId);
-
 
 
         helper = new ItemDbHelper(MainActivity.this);
@@ -231,10 +239,10 @@ public class MainActivity extends ListActivity {
 
         Intent intent = new Intent(this, AddItemActivity.class);
 
-        intent.putExtra("itemId",itemId);
-        intent.putExtra("itemName",itemName);
-        intent.putExtra("itemPrice",itemPrice);
-        intent.putExtra("itemQty",itemQty);
+        intent.putExtra("itemId", itemId);
+        intent.putExtra("itemName", itemName);
+        intent.putExtra("itemPrice", itemPrice);
+        intent.putExtra("itemQty", itemQty);
 
         startActivity(intent);
 
@@ -255,7 +263,9 @@ public class MainActivity extends ListActivity {
             qty--;
         }
 
-        if (qty < 1) {return;}
+        if (qty < 1) {
+            return;
+        }
 
         String sql = String.format("UPDATE %s SET %s = %s WHERE %s = '%s'",
                 ItemContract.TABLE,
