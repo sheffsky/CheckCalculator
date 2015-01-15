@@ -1,4 +1,4 @@
-package ru.sheffsky.barcounter;
+package ru.sheffsky.alculator;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

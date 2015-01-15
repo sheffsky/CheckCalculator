@@ -1,4 +1,4 @@
-package ru.sheffsky.barcounter;
+package ru.sheffsky.alculator;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import ru.sheffsky.barcounter.db.ItemContract;
+import ru.sheffsky.alculator.db.ItemContract;
 
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
@@ -41,7 +41,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
         if (selectedItemID == Integer.parseInt(_cursor.getString(_cursor.getColumnIndex(ItemContract.Columns._ID)))) {
             RelativeLayout additionalButtonsLayout = (RelativeLayout) view.findViewById(R.id.additionalButtonsLayout);
             additionalButtonsLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             RelativeLayout additionalButtonsLayout = (RelativeLayout) view.findViewById(R.id.additionalButtonsLayout);
             additionalButtonsLayout.setVisibility(View.GONE);
         }

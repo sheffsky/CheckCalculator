@@ -1,4 +1,4 @@
-package ru.sheffsky.barcounter.db;
+package ru.sheffsky.alculator.db;
 
 import android.provider.BaseColumns;
 

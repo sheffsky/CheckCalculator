@@ -1,4 +1,4 @@
-package ru.sheffsky.barcounter;
+package ru.sheffsky.alculator;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
-import ru.sheffsky.barcounter.db.ItemContract;
-import ru.sheffsky.barcounter.db.ItemDbHelper;
+import ru.sheffsky.alculator.db.ItemContract;
+import ru.sheffsky.alculator.db.ItemDbHelper;
 
 
 public class AddItemActivity extends Activity {
