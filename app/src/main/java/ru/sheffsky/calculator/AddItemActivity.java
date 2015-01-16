@@ -1,4 +1,4 @@
-package ru.sheffsky.alculator;
+package ru.sheffsky.calculator;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
-import ru.sheffsky.alculator.db.ItemContract;
-import ru.sheffsky.alculator.db.ItemDbHelper;
+import ru.sheffsky.calculator.db.ItemContract;
+import ru.sheffsky.calculator.db.ItemDbHelper;
 
 
 public class AddItemActivity extends Activity {

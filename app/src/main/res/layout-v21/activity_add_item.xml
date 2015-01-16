@@ -1,7 +1,12 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+        android:layout_height="wrap_content"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -68,7 +73,7 @@
         android:layout_height="wrap_content"
         android:text="@string/addButtonHeader"
         android:id="@+id/okButton"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/newItemQty"
         android:layout_centerHorizontal="true" />
 
     <NumberPicker
@@ -80,3 +85,4 @@
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
+</ScrollView>

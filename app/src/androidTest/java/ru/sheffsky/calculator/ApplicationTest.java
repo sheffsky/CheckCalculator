@@ -1,4 +1,4 @@
-package ru.sheffsky.alculator;
+package ru.sheffsky.calculator;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

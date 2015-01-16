@@ -1,4 +1,4 @@
-package ru.sheffsky.alculator;
+package ru.sheffsky.calculator;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -14,8 +14,8 @@ import android.widget.*;
 
 import java.math.BigDecimal;
 
-import ru.sheffsky.alculator.db.ItemContract;
-import ru.sheffsky.alculator.db.ItemDbHelper;
+import ru.sheffsky.calculator.db.ItemContract;
+import ru.sheffsky.calculator.db.ItemDbHelper;
 
 public class MainActivity extends ListActivity {
     private ItemDbHelper helper;

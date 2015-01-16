@@ -1,4 +1,4 @@
-package ru.sheffsky.alculator;
+package ru.sheffsky.calculator;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import ru.sheffsky.alculator.db.ItemContract;
+import ru.sheffsky.calculator.db.ItemContract;
 
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
