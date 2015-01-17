@@ -27,7 +27,7 @@ public class AddItemActivity extends Activity {
         np.setMinValue(1);
         np.setValue(1);
 
-        Button button = (Button) findViewById(R.id.okButton);
+        final Button button = (Button) findViewById(R.id.okButton);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -38,6 +38,14 @@ public class AddItemActivity extends Activity {
 
         EditText itemPriceEdit = (EditText) findViewById(R.id.newItemPrice);
         itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax("1", "999999")});
+        itemPriceEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    button.requestFocus();
+                }
+            }
+        });
 
         if (getIntent().getIntExtra("itemId", -1) > 0) {
             EditText itemNameEdit = (EditText) findViewById(R.id.newItemName);
@@ -50,9 +58,7 @@ public class AddItemActivity extends Activity {
             setTitle(getString(R.string.updateHeader));
 
             button.setText(getString(R.string.updateButton));
-
         }
-
     }
 
     public void onAddButtonClick(View view) {
