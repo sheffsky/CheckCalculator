@@ -72,6 +72,8 @@
         android:id="@+id/okButton"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_below="@+id/newItemQty"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_centerHorizontal="true" />
 
         <NumberPicker
