@@ -42,7 +42,7 @@ public class MainActivity extends ListActivity {
                 removeAll();
                 return true;
             case R.id.action_add_item:
-                showAddNewItem();
+                showAddNewItem(getListView());
                 return true;
             case R.id.action_about:
                 showAboutActivity();
@@ -52,7 +52,7 @@ public class MainActivity extends ListActivity {
         }
     }
 
-    public void showAddNewItem() {
+    public void showAddNewItem(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
     }
@@ -103,11 +103,7 @@ public class MainActivity extends ListActivity {
                         ItemContract.Columns.ITEM,
                         ItemContract.Columns.QTY,
                         ItemContract.Columns.PRICE},
-                new int[]{
-                        R.id.itemId,
-                        R.id.itemName,
-                        R.id.itemQty,
-                        R.id.itemPrice},
+                new int[]{},
                 this.selectedItemId
         );
 

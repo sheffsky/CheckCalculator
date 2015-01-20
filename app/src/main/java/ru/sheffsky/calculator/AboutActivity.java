@@ -11,10 +11,6 @@ public class AboutActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-        TextView textView = (TextView) findViewById(R.id.donateLink);
-        textView.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
-
     }
 
 }
