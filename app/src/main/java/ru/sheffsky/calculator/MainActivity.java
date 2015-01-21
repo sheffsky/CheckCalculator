@@ -44,9 +44,6 @@ public class MainActivity extends ListActivity {
             case R.id.action_add_item:
                 showAddNewItem(getListView());
                 return true;
-            case R.id.action_about:
-                showAboutActivity();
-                return true;
             default:
                 return false;
         }
@@ -54,11 +51,6 @@ public class MainActivity extends ListActivity {
 
     public void showAddNewItem(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
-        startActivity(intent);
-    }
-
-    public void showAboutActivity() {
-        Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 

@@ -9,15 +9,10 @@
         android:title="@string/addItemMenuButton" />
 
 
-        <item android:id="@+id/action_remove_all"
-            android:title="@string/menuRemoveAll"
-            android:icon="@android:drawable/ic_menu_delete"
-            android:showAsAction="never"
-            />
-
     <item
-        android:id="@+id/action_about"
-        android:title="@string/menuAbout"
+        android:id="@+id/action_remove_all"
+        android:title="@string/menuRemoveAll"
+        android:icon="@android:drawable/ic_menu_delete"
         android:showAsAction="never" />
 
 </menu>
