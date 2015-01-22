@@ -42,7 +42,9 @@ public class AddItemActivity extends Activity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
+                    button.setFocusableInTouchMode(true);
                     button.requestFocus();
+                    button.setFocusableInTouchMode(false); //else this button needs to be clicked twice
                 }
             }
         });
