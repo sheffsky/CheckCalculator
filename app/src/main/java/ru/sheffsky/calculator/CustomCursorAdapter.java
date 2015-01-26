@@ -20,22 +20,18 @@ import ru.sheffsky.calculator.db.ItemContract;
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
     private int layout;
+    private Integer selectedItemID = 0;
 
-    private Integer selectedItemID;
-
-    public CustomCursorAdapter(Context _context, int _layout, Cursor _cursor, String[] _from, int[] _to, Integer selectedItemId) {
+    public CustomCursorAdapter(Context _context, int _layout, Cursor _cursor, String[] _from, int[] _to) {
         super(_context, _layout, _cursor, _from, _to);
         LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layout = _layout;
-        selectedItemID = selectedItemId;
     }
 
-    /*
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return mInflater.inflate(R.layout.item_view, parent, false);
-        }
-    */
+    public void setSelectedItemId(Integer itemId) {
+        this.selectedItemID = itemId;
+    }
+
     @Override
     public void bindView(View view, Context _context, Cursor _cursor) {
 
@@ -69,7 +65,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
             mutatedMinusIcon.setColorFilter(Color.parseColor("#535353"), PorterDuff.Mode.SRC_IN); //Grey
             btnMinus.setEnabled(false);
         } else {
-            mutatedMinusIcon.setColorFilter(Color.parseColor("#915555"), PorterDuff.Mode.SRC_IN); //Red
+            mutatedMinusIcon.setColorFilter(Color.parseColor("#A05555"), PorterDuff.Mode.SRC_IN); //Red 915555
             btnMinus.setEnabled(true);
         }
 
@@ -83,7 +79,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
             mutatedPlusIcon.setColorFilter(Color.parseColor("#535353"), PorterDuff.Mode.SRC_IN); //Grey
             btnPlus.setEnabled(false);
         } else {
-            mutatedPlusIcon.setColorFilter(Color.parseColor("#3C753F"), PorterDuff.Mode.SRC_IN); //Green
+            mutatedPlusIcon.setColorFilter(Color.parseColor("#55A055"), PorterDuff.Mode.SRC_IN); //Green 3C753F
             btnPlus.setEnabled(true);
         }
 

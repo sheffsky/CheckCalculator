@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,16 +18,19 @@ import java.math.BigDecimal;
 import ru.sheffsky.calculator.db.ItemContract;
 import ru.sheffsky.calculator.db.ItemDbHelper;
 
+
 public class MainActivity extends ListActivity {
     private ItemDbHelper helper;
     public Integer selectedItemId = 0;
+    private CustomCursorAdapter cursorAdapter;
+    private RelativeLayout lastShownAdditionalButtonsLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        updateUI();
+        createListView();
     }
 
     @Override
@@ -69,13 +73,27 @@ public class MainActivity extends ListActivity {
                         helper = new ItemDbHelper(MainActivity.this);
                         SQLiteDatabase sqlDB = helper.getWritableDatabase();
                         sqlDB.execSQL(sql);
-                        updateUI();
+                        createListView();
                     }
                 })
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    public void updateUI() {
+    public void refreshListView() {
+        helper = new ItemDbHelper(MainActivity.this);
+        SQLiteDatabase sqlDB = helper.getReadableDatabase();
+        Cursor cursor = sqlDB.query(ItemContract.TABLE,
+                new String[]{ItemContract.Columns._ID,
+                        ItemContract.Columns.ITEM,
+                        ItemContract.Columns.QTY,
+                        ItemContract.Columns.PRICE},
+                null, null, null, null, null);
+
+        this.cursorAdapter.setSelectedItemId(selectedItemId);
+        this.cursorAdapter.changeCursor(cursor);
+    }
+
+    public void createListView() {
         helper = new ItemDbHelper(MainActivity.this);
         SQLiteDatabase sqlDB = helper.getReadableDatabase();
         Cursor cursor = sqlDB.query(ItemContract.TABLE,
@@ -95,9 +113,10 @@ public class MainActivity extends ListActivity {
                         ItemContract.Columns.ITEM,
                         ItemContract.Columns.QTY,
                         ItemContract.Columns.PRICE},
-                new int[]{},
-                this.selectedItemId
+                new int[]{}
         );
+
+        this.cursorAdapter = (CustomCursorAdapter) listAdapter;
 
         this.setListAdapter(listAdapter);
 
@@ -147,7 +166,7 @@ public class MainActivity extends ListActivity {
                         helper = new ItemDbHelper(MainActivity.this);
                         SQLiteDatabase sqlDB = helper.getWritableDatabase();
                         sqlDB.execSQL(sql);
-                        updateUI();
+                        refreshListView();
                     }
                 })
                 .setNegativeButton(android.R.string.no, null).show();
@@ -161,18 +180,28 @@ public class MainActivity extends ListActivity {
         Integer previousItemId = selectedItemId;
         selectedItemId = Integer.parseInt(itemIdView.getText().toString());
 
+        RelativeLayout additionalButtonsLayout = (RelativeLayout) v.findViewById(R.id.additionalButtonsLayout);
         if (selectedItemId > 0 && selectedItemId.equals(previousItemId)) {
             selectedItemId = 0;
+            this.cursorAdapter.setSelectedItemId(selectedItemId);
+            additionalButtonsLayout.setVisibility(View.GONE);
+        } else {
+            if (lastShownAdditionalButtonsLayout != null) {
+                lastShownAdditionalButtonsLayout.setVisibility(View.GONE);
+            }
+            additionalButtonsLayout.setVisibility(View.VISIBLE);
+            lastShownAdditionalButtonsLayout = additionalButtonsLayout;
         }
-
-        updateUI();
+        refreshListView();
     }
 
     public void onItemOutsideClick(View view) {
-
-        selectedItemId = 0;
-
-        updateUI();
+        if (lastShownAdditionalButtonsLayout != null) {
+            selectedItemId = 0;
+            this.cursorAdapter.setSelectedItemId(selectedItemId);
+            lastShownAdditionalButtonsLayout.setVisibility(View.GONE);
+            refreshListView();
+        }
     }
 
     public void onPlusButtonClick(View view) {
@@ -205,7 +234,8 @@ public class MainActivity extends ListActivity {
         helper = new ItemDbHelper(MainActivity.this);
         SQLiteDatabase sqlDB = helper.getWritableDatabase();
         sqlDB.execSQL(sql);
-        updateUI();
+
+        refreshListView();
 
     }
 
@@ -266,7 +296,8 @@ public class MainActivity extends ListActivity {
         helper = new ItemDbHelper(MainActivity.this);
         SQLiteDatabase sqlDB = helper.getWritableDatabase();
         sqlDB.execSQL(sql);
-        updateUI();
+
+        refreshListView();
 
     }
 
