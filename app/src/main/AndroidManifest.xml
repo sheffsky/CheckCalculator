@@ -19,7 +19,7 @@
         <activity
             android:name="ru.sheffsky.calculator.AddItemActivity"
             android:label="@string/title_activity_add_item"
-            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@android:style/Theme.Dialog" />
     </application>
 

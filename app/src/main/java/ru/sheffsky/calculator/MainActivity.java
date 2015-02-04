@@ -91,6 +91,8 @@ public class MainActivity extends ListActivity {
 
         this.cursorAdapter.setSelectedItemId(selectedItemId);
         this.cursorAdapter.changeCursor(cursor);
+
+        updatePrice();
     }
 
     public void createListView() {
@@ -120,6 +122,13 @@ public class MainActivity extends ListActivity {
 
         this.setListAdapter(listAdapter);
 
+        updatePrice();
+
+    }
+
+    private void updatePrice() {
+        SQLiteDatabase sqlDB;
+        Cursor cursor;
         Double totalPrice = (double) 0;
 
         String sql = String.format("SELECT SUM(%s * %s) FROM %s",
@@ -141,7 +150,6 @@ public class MainActivity extends ListActivity {
 
         TextView totalPriceView = (TextView) findViewById(R.id.totalPrice);
         totalPriceView.setText(getString(R.string.totalPriceText) + " " + totalPrice.toString());
-
     }
 
 

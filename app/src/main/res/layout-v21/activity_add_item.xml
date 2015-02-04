@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView3"
             android:layout_centerHorizontal="true"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical" />
 
         <Button

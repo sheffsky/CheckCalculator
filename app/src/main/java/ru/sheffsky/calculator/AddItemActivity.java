@@ -7,9 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 
 import ru.sheffsky.calculator.db.ItemContract;
 import ru.sheffsky.calculator.db.ItemDbHelper;
@@ -33,6 +35,14 @@ public class AddItemActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onAddButtonClick(v);
+            }
+        });
+
+        RelativeLayout addItemLayout = (RelativeLayout) findViewById(R.id.addItemLayout);
+        addItemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOuterClick(v);
             }
         });
 
@@ -61,6 +71,13 @@ public class AddItemActivity extends Activity {
 
             button.setText(getString(R.string.updateButton));
         }
+    }
+
+    public void onOuterClick(View view) {
+
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
     }
 
     public void onAddButtonClick(View view) {
@@ -96,6 +113,7 @@ public class AddItemActivity extends Activity {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
     }
 
 }
