@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import ru.sheffsky.calculator.db.ItemContract;
 import ru.sheffsky.calculator.db.ItemDbHelper;
@@ -46,6 +48,14 @@ public class AddItemActivity extends Activity {
             }
         });
 
+        ImageButton showPickerButton = (ImageButton) findViewById(R.id.showPickerButton);
+        showPickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showQtyPicker(v);
+            }
+        });
+
         EditText itemPriceEdit = (EditText) findViewById(R.id.newItemPrice);
         itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax("1", "999999")});
         itemPriceEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -73,11 +83,30 @@ public class AddItemActivity extends Activity {
         }
     }
 
+
     public void onOuterClick(View view) {
 
+        hideKeyboard();
+
+    }
+
+    private void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
 
+    public void showQtyPicker(View view) {
+
+        hideKeyboard();
+
+        ImageButton showPickerButton = (ImageButton) findViewById(R.id.showPickerButton);
+        showPickerButton.setVisibility(View.GONE);
+
+        TextView qtyHeader = (TextView) findViewById(R.id.textView3);
+        qtyHeader.setVisibility(View.VISIBLE);
+
+        NumberPicker qtyPicker = (NumberPicker) findViewById(R.id.newItemQty);
+        qtyPicker.setVisibility(View.VISIBLE);
     }
 
     public void onAddButtonClick(View view) {

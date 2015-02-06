@@ -22,5 +22,6 @@
     <string name="aboutCaptionAuthorName">Александр Баршевский</string>
     <string name="aboutCaptionAuthorPrep">Автор</string>
     <string name="aboutDonatePaypalLink"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ZN44ERVH8FVE2&amp;lc=RU&amp;item_name=Sheffsky&amp;currency_code=RUB&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Угостить пивом</a> :)</string>
+    <string name="showMoreButtonCaption">Ещё</string>
 
 </resources>
