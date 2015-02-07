@@ -52,7 +52,7 @@ public class AddItemActivity extends Activity {
         showPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showQtyPicker(v);
+                toggleQtyPicker(v);
             }
         });
 
@@ -95,18 +95,27 @@ public class AddItemActivity extends Activity {
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
-    public void showQtyPicker(View view) {
+    public void toggleQtyPicker(View view) {
 
         hideKeyboard();
 
         ImageButton showPickerButton = (ImageButton) findViewById(R.id.showPickerButton);
-        showPickerButton.setVisibility(View.GONE);
 
         TextView qtyHeader = (TextView) findViewById(R.id.textView3);
-        qtyHeader.setVisibility(View.VISIBLE);
+        if (qtyHeader.getVisibility() == View.GONE) {
+            qtyHeader.setVisibility(View.VISIBLE);
+            showPickerButton.setImageResource(R.drawable.ic_chevron_up_grey600_36dp);
+        } else {
+            qtyHeader.setVisibility(View.GONE);
+            showPickerButton.setImageResource(R.drawable.ic_chevron_down_grey600_36dp);
+        }
 
         NumberPicker qtyPicker = (NumberPicker) findViewById(R.id.newItemQty);
-        qtyPicker.setVisibility(View.VISIBLE);
+        if (qtyPicker.getVisibility() == View.GONE) {
+            qtyPicker.setVisibility(View.VISIBLE);
+        } else {
+            qtyPicker.setVisibility(View.GONE);
+        }
     }
 
     public void onAddButtonClick(View view) {

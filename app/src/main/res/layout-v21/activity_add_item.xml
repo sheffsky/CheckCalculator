@@ -33,8 +33,9 @@
             android:gravity="center_horizontal"
             android:inputType="textCapSentences"
             android:outlineProvider="background"
-            android:selectAllOnFocus="false"
-            android:singleLine="true" />
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textIsSelectable="false" />
 
         <TextView
             android:id="@+id/textView2"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/newItemName"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/priceHeader"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -84,18 +85,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/newItemQty"
             android:layout_centerHorizontal="true"
-            android:text="@string/addButtonHeader" />
+            android:text="@string/addButtonHeader"
+            android:layout_marginTop="10dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/showPickerButton"
-            android:layout_alignBottom="@+id/okButton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:src="@android:drawable/ic_menu_more"
+            android:src="@drawable/ic_chevron_down_grey600_36dp"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/showMoreButtonCaption" />
+            android:contentDescription="@string/showMoreButtonCaption"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>
