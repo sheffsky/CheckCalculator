@@ -5,4 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Widget.NumberPicker" parent="android:TextAppearance.Holo.Widget">
+
+    </style>
+
 </resources>
