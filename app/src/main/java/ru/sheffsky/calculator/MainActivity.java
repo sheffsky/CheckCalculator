@@ -34,6 +34,11 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
