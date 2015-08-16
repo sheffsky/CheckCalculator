@@ -133,6 +133,7 @@ public class AddItemActivity extends Activity {
             itemPrice = (float) 0;
         }
         NumberPicker newItemQty = (NumberPicker) findViewById(R.id.newItemQty);
+        //newItemQty.clearFocus(); //to avoid bug with not catching value entered with keyboards
         Integer itemQty = newItemQty.getValue();
 
         ItemDbHelper helper = new ItemDbHelper(AddItemActivity.this);

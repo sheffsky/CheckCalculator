@@ -35,7 +35,8 @@ public class MainActivity extends ListActivity {
 
     @Override
     public void onBackPressed() {
-        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+        moveTaskToBack(true);
+        //super.onBackPressed(); // Comment this super call to avoid calling finish()
     }
 
     @Override
