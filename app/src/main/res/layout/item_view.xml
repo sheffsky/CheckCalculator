@@ -15,34 +15,34 @@
         android:id="@+id/relativeLayout"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:onClick="onItemClick"
-        android:layout_toStartOf="@+id/additionalButtonsLayout">
+        android:layout_toStartOf="@+id/additionalButtonsLayout"
+        android:onClick="onItemClick">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/itemName"
-            android:text="Name"
+            android:text="Beer"
             android:singleLine="true"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:ellipsize="marquee"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/itemQty"
-            android:textSize="25dp" />
+            android:textSize="22dp"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
+            android:text="290"
             android:id="@+id/itemPrice"
-            android:textColor="#ff48c2e8"
-            android:textSize="16dp"
-            android:layout_marginLeft="31dp"
-            android:layout_marginStart="31dp"
-            android:layout_alignBottom="@+id/plusButton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginLeft="70dp"
+            android:layout_below="@+id/itemName"
+            android:layout_alignParentStart="true"
+            android:textSize="18dp"
+            android:textColor="@android:color/holo_blue_bright"
+            android:ellipsize="marquee" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -50,21 +50,22 @@
             android:id="@+id/plusButton"
             android:src="@drawable/ic_plus_circle_outline_grey600_36dp"
             android:onClick="onPlusButtonClick"
-            android:layout_alignParentTop="true"
+            android:descendantFocusability="blocksDescendants"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless" />
+            android:layout_alignParentEnd="false"
+            android:background="@android:color/transparent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Qty"
+            android:text="3"
             android:id="@+id/itemQty"
-            android:textSize="35dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/plusButton"
-            android:layout_toStartOf="@+id/plusButton" />
+            android:textSize="40dp"
+            android:layout_alignParentTop="false"
+            android:layout_toStartOf="@+id/plusButton"
+            android:layout_marginRight="5dp"
+            android:layout_alignBottom="@+id/plusButton" />
 
     </RelativeLayout>
 
@@ -81,33 +82,33 @@
             android:layout_height="50dp"
             android:id="@+id/minusButton"
             android:src="@drawable/ic_minus_circle_outline_grey600_36dp"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:onClick="onMinusButtonClick"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless" />
+            android:layout_toStartOf="@+id/editButton"
+            android:background="@android:color/transparent" />
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:id="@+id/editButton"
             android:src="@android:drawable/ic_menu_edit"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:onClick="onEditButtonClick"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/minusButton"
-            android:layout_toEndOf="@+id/minusButton"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless" />
+            android:layout_toStartOf="@+id/deleteButton"
+            android:background="@android:color/transparent" />
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:id="@+id/deleteButton"
             android:src="@android:drawable/ic_menu_delete"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:onClick="onDeleteButtonClick"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/editButton"
-            android:layout_toEndOf="@+id/editButton"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless" />
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent" />
 
     </RelativeLayout>
 
@@ -119,6 +120,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
         android:visibility="gone" />
+
 
 </RelativeLayout>
 

@@ -10,7 +10,7 @@ public class AddItemActivityTest extends ActivityInstrumentationTestCase2 {
     private AddItemActivity addItemActivity;
     private EditText newItemName;
     private EditText newItemPrice;
-    private NumberPicker newItemQty;
+    private EditText newItemQty;
 
     public AddItemActivityTest() {
         super(AddItemActivity.class);
@@ -26,7 +26,7 @@ public class AddItemActivityTest extends ActivityInstrumentationTestCase2 {
 
         newItemName = (EditText) addItemActivity.findViewById(R.id.newItemName);
         newItemPrice = (EditText) addItemActivity.findViewById(R.id.newItemPrice);
-        newItemQty = (NumberPicker) addItemActivity.findViewById(R.id.newItemQty);
+        newItemQty = (EditText) addItemActivity.findViewById(R.id.qtyNumber);
 
     }
 
@@ -39,7 +39,7 @@ public class AddItemActivityTest extends ActivityInstrumentationTestCase2 {
                 .toString());
         assertEquals("newItemPrice is not empty", "", newItemPrice
                 .getText().toString());
-        assertEquals("newItemQty value is not 1", 1, newItemQty.getValue());
+        assertEquals("newItemQty value is not 1", 1, Integer.parseInt(newItemQty.getText().toString()));
     }
 
 }

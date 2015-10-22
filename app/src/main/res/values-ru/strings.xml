@@ -2,26 +2,30 @@
 
     <string name="action_settings">Настройки</string>
     <string name="app_name">Бухучёт</string>
-    <string name="title_activity_add_item">Новая позиция</string>
+    <string name="title_activity_add_item">Новая запись</string>
     <string name="totalPriceText">Итого:</string>
     <string name="addButtonHeader">Добавить</string>
     <string name="itemNameHeader">Наименование</string>
     <string name="priceHeader">Цена</string>
     <string name="quantityHeader">Количество</string>
-    <string name="addItemMenuButton">Новая позиция</string>
+    <string name="addItemMenuButton">Новая запись</string>
     <string name="menuRemoveAll">Удалить всё</string>
-    <string name="deleteItemBody">Вы действительно хотите удалить позицию?</string>
+    <string name="deleteItemBody">Вы действительно хотите удалить запись?</string>
     <string name="deleteItemCaption">Удаление</string>
-    <string name="deleteAllBody">Вы действительно хотите удалить все позиции?</string>
+    <string name="deleteAllBody">Вы действительно хотите удалить все записи?</string>
     <string name="deleteAllCaption">Удалить всё</string>
-    <string name="updateButton">Обновить</string>
-    <string name="emptyListMessage">Список пуст.\nНажмите + чтобы добавить позицию.</string>
-    <string name="updateHeader">Изменить позицию</string>
+    <string name="updateButton">Изменить</string>
+    <string name="emptyListMessage">Список пуст.\nНажмите + чтобы добавить запись.</string>
+    <string name="updateHeader">Изменить запись</string>
     <string name="menuAbout">О программе</string>
     <string name="title_activity_about">О программе</string>
     <string name="aboutCaptionAuthorName">Александр Баршевский</string>
     <string name="aboutCaptionAuthorPrep">Автор</string>
     <string name="aboutDonatePaypalLink"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ZN44ERVH8FVE2&amp;lc=RU&amp;item_name=Sheffsky&amp;currency_code=RUB&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Угостить пивом</a> :)</string>
     <string name="showMoreButtonCaption">Ещё</string>
+    <string name="personsQuantityHeader">Людей</string>
+    <string name="quantityOfPeopleHeader">/ Персон</string>
+    <string name="showPersonsHint">Разделить</string>
+    <string name="hideCaption">Скрыть</string>
 
 </resources>

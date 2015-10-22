@@ -24,5 +24,9 @@
     <string name="aboutDonatePaypalLink"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ZN44ERVH8FVE2&amp;lc=US&amp;item_name=Sheffsky&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Donate a beer</a> :)</string>
     <string name="aboutCaptionAuthorPrep">Author</string>
     <string name="showMoreButtonCaption">Show more</string>
+    <string name="personsQuantityHeader">Persons</string>
+    <string name="quantityOfPeopleHeader">/ People</string>
+    <string name="showPersonsHint">Show persons</string>
+    <string name="hideCaption">Hide</string>
 
 </resources>

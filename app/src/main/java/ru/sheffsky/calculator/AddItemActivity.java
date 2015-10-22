@@ -1,9 +1,7 @@
 package ru.sheffsky.calculator;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
@@ -11,12 +9,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 import ru.sheffsky.calculator.db.ItemContract;
-import ru.sheffsky.calculator.db.ItemDbHelper;
+import ru.sheffsky.calculator.db.DbUtils;
+import ru.sheffsky.calculator.utils.InterfaceUtils;
 
 
 public class AddItemActivity extends Activity {
@@ -25,11 +27,6 @@ public class AddItemActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
-        NumberPicker np = (NumberPicker) findViewById(R.id.newItemQty);
-        np.setMaxValue(99);
-        np.setMinValue(1);
-        np.setValue(1);
 
         final Button button = (Button) findViewById(R.id.okButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +53,14 @@ public class AddItemActivity extends Activity {
             }
         });
 
+        EditText itemQtyEdit = (EditText) findViewById(R.id.qtyNumber);
+        itemQtyEdit.setFilters(new InputFilter[]{new InputFilterMinMax(InterfaceUtils.settingMinQty, InterfaceUtils.settingMaxQty, false)});
+
+        EditText personQtyEdit = (EditText) findViewById(R.id.personQty);
+        personQtyEdit.setFilters(new InputFilter[]{new InputFilterMinMax(InterfaceUtils.settingMinPersons, InterfaceUtils.settingMaxPersons, false)});
+
         EditText itemPriceEdit = (EditText) findViewById(R.id.newItemPrice);
-        itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax("1", "999999")});
+        itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax(InterfaceUtils.settingMinPrice, InterfaceUtils.settingMaxPrice, true)});
         itemPriceEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -70,12 +73,16 @@ public class AddItemActivity extends Activity {
         });
 
         if (getIntent().getIntExtra("itemId", -1) > 0) {
+
+            Map<String, String> itemMap;
             EditText itemNameEdit = (EditText) findViewById(R.id.newItemName);
-            itemNameEdit.setText(getIntent().getStringExtra("itemName"));
 
-            itemPriceEdit.setText(getIntent().getStringExtra("itemPrice"));
+            itemMap = DbUtils.getItemById(this, getIntent().getIntExtra("itemId", -1));
 
-            np.setValue(getIntent().getIntExtra("itemQty", 1));
+            itemNameEdit.setText(itemMap.get(ItemContract.Columns.ITEM));
+            itemPriceEdit.setText(itemMap.get(ItemContract.Columns.PRICE));
+            itemQtyEdit.setText(itemMap.get(ItemContract.Columns.QTY));
+            personQtyEdit.setText(itemMap.get(ItemContract.Columns.PERSONS));
 
             setTitle(getString(R.string.updateHeader));
 
@@ -100,55 +107,41 @@ public class AddItemActivity extends Activity {
         hideKeyboard();
 
         ImageButton showPickerButton = (ImageButton) findViewById(R.id.showPickerButton);
+        RelativeLayout qtyLayout = (RelativeLayout) findViewById(R.id.quantityLayout);
 
-        TextView qtyHeader = (TextView) findViewById(R.id.textView3);
-        if (qtyHeader.getVisibility() == View.GONE) {
-            qtyHeader.setVisibility(View.VISIBLE);
+        if (qtyLayout.getVisibility() == View.GONE) {
+            qtyLayout.setVisibility(View.VISIBLE);
             showPickerButton.setImageResource(R.drawable.ic_chevron_up_grey600_36dp);
         } else {
-            qtyHeader.setVisibility(View.GONE);
+            qtyLayout.setVisibility(View.GONE);
             showPickerButton.setImageResource(R.drawable.ic_chevron_down_grey600_36dp);
-        }
-
-        NumberPicker qtyPicker = (NumberPicker) findViewById(R.id.newItemQty);
-        if (qtyPicker.getVisibility() == View.GONE) {
-            qtyPicker.setVisibility(View.VISIBLE);
-        } else {
-            qtyPicker.setVisibility(View.GONE);
         }
     }
 
     public void onAddButtonClick(View view) {
 
         EditText newItemName = (EditText) findViewById(R.id.newItemName);
-        String itemName = newItemName.getText().toString();
+        TextView newItemQty = (TextView) findViewById(R.id.qtyNumber);
+        TextView newItemPersons = (TextView) findViewById(R.id.personQty);
+        EditText newItemPrice = (EditText) findViewById(R.id.newItemPrice);
 
         Float itemPrice;
-
-        EditText newItemPrice = (EditText) findViewById(R.id.newItemPrice);
 
         try {
             itemPrice = Float.parseFloat(newItemPrice.getText().toString());
         } catch (NumberFormatException e) {
             itemPrice = (float) 0;
         }
-        NumberPicker newItemQty = (NumberPicker) findViewById(R.id.newItemQty);
-        //newItemQty.clearFocus(); //to avoid bug with not catching value entered with keyboards
-        Integer itemQty = newItemQty.getValue();
 
-        ItemDbHelper helper = new ItemDbHelper(AddItemActivity.this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        HashMap<String, Object> itemMap = new HashMap<>();
 
-        values.clear();
-        if (getIntent().getIntExtra("itemId", -1) > 0) {
-            values.put(ItemContract.Columns._ID, getIntent().getIntExtra("itemId", -1));
-        }
-        values.put(ItemContract.Columns.ITEM, itemName);
-        values.put(ItemContract.Columns.PRICE, itemPrice);
-        values.put(ItemContract.Columns.QTY, itemQty);
+        itemMap.put(ItemContract.Columns._ID,       getIntent().getIntExtra("itemId", -1));
+        itemMap.put(ItemContract.Columns.ITEM,      newItemName.getText());
+        itemMap.put(ItemContract.Columns.PRICE,     itemPrice);
+        itemMap.put(ItemContract.Columns.QTY,       newItemQty.getText());
+        itemMap.put(ItemContract.Columns.PERSONS,   newItemPersons.getText());
 
-        db.insertWithOnConflict(ItemContract.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        DbUtils.addOrUpdateItem(this, itemMap);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

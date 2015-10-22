@@ -5,27 +5,25 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+import ru.sheffsky.calculator.utils.InterfaceUtils;
 
 import ru.sheffsky.calculator.db.ItemContract;
 
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
-    private int layout;
+    //private int layout;
     private Integer selectedItemID = 0;
 
     public CustomCursorAdapter(Context _context, int _layout, Cursor _cursor, String[] _from, int[] _to) {
         super(_context, _layout, _cursor, _from, _to);
         LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layout = _layout;
+        //layout = _layout;
     }
 
     public void setSelectedItemId(Integer itemId) {
@@ -45,9 +43,14 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
         itemPrice.setText(_cursor.getString(_cursor.getColumnIndex(ItemContract.Columns.PRICE)));
 
         String itemQtyText = _cursor.getString(_cursor.getColumnIndex(ItemContract.Columns.QTY));
+        Integer personsQty = _cursor.getInt(_cursor.getColumnIndex(ItemContract.Columns.PERSONS));
 
         TextView itemQty = (TextView) view.findViewById(R.id.itemQty);
-        itemQty.setText(itemQtyText);
+        if (personsQty == 1) {
+            itemQty.setText(itemQtyText);
+        } else {
+            itemQty.setText(itemQtyText + "/" + Integer.toString(personsQty));
+        }
 
         if (selectedItemID == Integer.parseInt(_cursor.getString(_cursor.getColumnIndex(ItemContract.Columns._ID)))) {
             RelativeLayout additionalButtonsLayout = (RelativeLayout) view.findViewById(R.id.additionalButtonsLayout);
@@ -58,34 +61,25 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
         }
 
         ImageButton btnMinus = (ImageButton) view.findViewById(R.id.minusButton);
-        Drawable originalMinusIcon = view.getResources().getDrawable(R.drawable.ic_minus_circle_outline_grey600_36dp);
-        Drawable mutatedMinusIcon = originalMinusIcon.mutate();
 
-        if (Integer.parseInt(itemQtyText) == 1) {
-            mutatedMinusIcon.setColorFilter(Color.parseColor("#535353"), PorterDuff.Mode.SRC_IN); //Grey
+        if (Integer.parseInt(itemQtyText) == InterfaceUtils.settingMinQty) {
+            InterfaceUtils.setImageButtonColor(view, InterfaceUtils.buttonType.MINUS, btnMinus, InterfaceUtils.buttonColor.GRAY);
             btnMinus.setEnabled(false);
         } else {
-            mutatedMinusIcon.setColorFilter(Color.parseColor("#A05555"), PorterDuff.Mode.SRC_IN); //Red 915555
+            InterfaceUtils.setImageButtonColor(view, InterfaceUtils.buttonType.MINUS, btnMinus, InterfaceUtils.buttonColor.RED);
             btnMinus.setEnabled(true);
         }
 
-        btnMinus.setImageDrawable(mutatedMinusIcon);
-
         ImageButton btnPlus = (ImageButton) view.findViewById(R.id.plusButton);
-        Drawable originalPlusIcon = view.getResources().getDrawable(R.drawable.ic_plus_circle_outline_grey600_36dp);
-        Drawable mutatedPlusIcon = originalPlusIcon.mutate();
 
-        if (Integer.parseInt(itemQtyText) == 99) {
-            mutatedPlusIcon.setColorFilter(Color.parseColor("#535353"), PorterDuff.Mode.SRC_IN); //Grey
+        if (Integer.parseInt(itemQtyText) == InterfaceUtils.settingMaxQty) {
+            InterfaceUtils.setImageButtonColor(view, InterfaceUtils.buttonType.PLUS, btnPlus, InterfaceUtils.buttonColor.GRAY);
             btnPlus.setEnabled(false);
         } else {
-            mutatedPlusIcon.setColorFilter(Color.parseColor("#55A055"), PorterDuff.Mode.SRC_IN); //Green 3C753F
+            InterfaceUtils.setImageButtonColor(view, InterfaceUtils.buttonType.PLUS, btnPlus, InterfaceUtils.buttonColor.GREEN);
             btnPlus.setEnabled(true);
         }
 
-        btnPlus.setImageDrawable(mutatedPlusIcon);
-
     }
-
 
 }
