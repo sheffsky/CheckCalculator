@@ -2,10 +2,6 @@ package ru.sheffsky.calculator;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -21,9 +17,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
     private Integer selectedItemID = 0;
 
     public CustomCursorAdapter(Context _context, int _layout, Cursor _cursor, String[] _from, int[] _to) {
-        super(_context, _layout, _cursor, _from, _to);
-        LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //layout = _layout;
+        super(_context, _layout, _cursor, _from, _to, 0);
     }
 
     public void setSelectedItemId(Integer itemId) {
