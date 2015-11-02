@@ -28,5 +28,8 @@
     <string name="quantityOfPeopleHeader">/ People</string>
     <string name="showPersonsHint">Show persons</string>
     <string name="hideCaption">Hide</string>
+    <string name="qtyNumberText">1</string>
+    <string name="personQtyText">1</string>
+    <string name="dividerText">/</string>
 
 </resources>

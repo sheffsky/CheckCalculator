@@ -27,5 +27,8 @@
     <string name="quantityOfPeopleHeader">/ Персон</string>
     <string name="showPersonsHint">Разделить</string>
     <string name="hideCaption">Скрыть</string>
+    <string name="qtyNumberText">1</string>
+    <string name="personQtyText">1</string>
+    <string name="dividerText">/</string>
 
 </resources>
