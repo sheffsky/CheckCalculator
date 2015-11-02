@@ -30,5 +30,9 @@
     <string name="qtyNumberText">1</string>
     <string name="personQtyText">1</string>
     <string name="dividerText">/</string>
+    <string name="deleteButtonDescription">удалить</string>
+    <string name="editButtonDescription">редактировать</string>
+    <string name="minusButtonDescription">минус</string>
+    <string name="plusButtonDescription">плюс</string>
 
 </resources>
