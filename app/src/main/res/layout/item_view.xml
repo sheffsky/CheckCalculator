@@ -22,25 +22,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/itemName"
-            android:text="Beer"
+            android:text=""
             android:singleLine="true"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:ellipsize="marquee"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/itemQty"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textColor="@android:color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="290"
+            android:text=""
             android:id="@+id/itemPrice"
             android:layout_marginLeft="70dp"
             android:layout_below="@+id/itemName"
             android:layout_alignParentStart="true"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@android:color/holo_blue_bright"
             android:ellipsize="marquee" />
 
@@ -53,15 +53,16 @@
             android:descendantFocusability="blocksDescendants"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="false"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/plusButtonDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="3"
+            android:text=""
             android:id="@+id/itemQty"
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:layout_alignParentTop="false"
             android:layout_toStartOf="@+id/plusButton"
             android:layout_marginRight="5dp"
@@ -86,7 +87,8 @@
             android:onClick="onMinusButtonClick"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/editButton"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/minusButtonDescription" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -97,7 +99,8 @@
             android:onClick="onEditButtonClick"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/deleteButton"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/editButtonDescription" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -108,7 +111,8 @@
             android:onClick="onDeleteButtonClick"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/deleteButtonDescription" />
 
     </RelativeLayout>
 

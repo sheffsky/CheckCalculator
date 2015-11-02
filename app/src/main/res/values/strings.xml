@@ -31,5 +31,9 @@
     <string name="qtyNumberText">1</string>
     <string name="personQtyText">1</string>
     <string name="dividerText">/</string>
+    <string name="plusButtonDescription">plus</string>
+    <string name="minusButtonDescription">minus</string>
+    <string name="editButtonDescription">edit</string>
+    <string name="deleteButtonDescription">delete</string>
 
 </resources>
