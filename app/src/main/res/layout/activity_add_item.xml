@@ -74,7 +74,6 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/showMoreButtonCaption"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <RelativeLayout
@@ -82,9 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/newItemPrice"
             android:id="@+id/quantityLayout"
-            android:layout_alignRight="@+id/newItemName"
             android:layout_alignEnd="@+id/newItemName"
-            android:layout_alignLeft="@+id/newItemName"
             android:layout_alignStart="@+id/newItemName"
             android:visibility="gone">
 
@@ -98,7 +95,7 @@
                 android:visibility="visible"
                 android:singleLine="true"
                 android:layout_alignParentTop="false"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true" />
 
@@ -106,7 +103,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/qtyHeader"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
 
                 <EditText
