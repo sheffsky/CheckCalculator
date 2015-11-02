@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,15 +76,20 @@ public class AddItemActivity extends Activity {
 
         if (getIntent().getIntExtra("itemId", -1) > 0) {
 
-            Map<String, String> itemMap;
             EditText itemNameEdit = (EditText) findViewById(R.id.newItemName);
 
-            itemMap = DbUtils.getItemById(this, getIntent().getIntExtra("itemId", -1));
+            ItemContract.Values values = DbUtils.getItemById(this, getIntent().getIntExtra("itemId", -1));
 
-            itemNameEdit.setText(itemMap.get(ItemContract.Columns.ITEM));
-            itemPriceEdit.setText(itemMap.get(ItemContract.Columns.PRICE));
-            itemQtyEdit.setText(itemMap.get(ItemContract.Columns.QTY));
-            personQtyEdit.setText(itemMap.get(ItemContract.Columns.PERSONS));
+            itemNameEdit.setText(values.getItem());
+
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+            otherSymbols.setDecimalSeparator('.');
+            DecimalFormat df = new DecimalFormat("#.##", otherSymbols);
+
+            itemPriceEdit.setText(df.format(values.getPrice()));
+
+            itemQtyEdit.setText(values.getQty().toString());
+            personQtyEdit.setText(values.getPersons().toString());
 
             setTitle(getString(R.string.updateHeader));
 
@@ -99,7 +106,7 @@ public class AddItemActivity extends Activity {
 
     private void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
     public void toggleQtyPicker(View view) {
@@ -125,7 +132,7 @@ public class AddItemActivity extends Activity {
         TextView newItemPersons = (TextView) findViewById(R.id.personQty);
         EditText newItemPrice = (EditText) findViewById(R.id.newItemPrice);
 
-        Float itemPrice;
+        float itemPrice;
 
         try {
             itemPrice = Float.parseFloat(newItemPrice.getText().toString());
@@ -133,15 +140,16 @@ public class AddItemActivity extends Activity {
             itemPrice = (float) 0;
         }
 
-        HashMap<String, Object> itemMap = new HashMap<>();
+        ItemContract.Values values = new ItemContract().new Values();
 
-        itemMap.put(ItemContract.Columns._ID,       getIntent().getIntExtra("itemId", -1));
-        itemMap.put(ItemContract.Columns.ITEM,      newItemName.getText());
-        itemMap.put(ItemContract.Columns.PRICE,     itemPrice);
-        itemMap.put(ItemContract.Columns.QTY,       newItemQty.getText());
-        itemMap.put(ItemContract.Columns.PERSONS,   newItemPersons.getText());
+        values.setItemId(getIntent().getIntExtra("itemId", -1));
+        values.setItem(newItemName.getText().toString());
+        values.setPrice(itemPrice);
+        values.setQty(Integer.parseInt(newItemQty.getText().toString()));
+        values.setPersons(Integer.parseInt(newItemPersons.getText().toString()));
 
-        DbUtils.addOrUpdateItem(this, itemMap);
+
+        DbUtils.addOrUpdateItem(this, values);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

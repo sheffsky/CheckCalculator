@@ -1,5 +1,7 @@
 package ru.sheffsky.calculator.utils;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -26,11 +28,11 @@ public class InterfaceUtils {
 
         switch (bType) {
             case MINUS:
-                originalIcon = view.getResources().getDrawable(R.drawable.ic_minus_circle_outline_grey600_36dp);
+                originalIcon = view.getResources().getDrawable(R.drawable.ic_minus_circle_outline_grey600_36dp, null);
                 break;
 
             case PLUS:
-                originalIcon = view.getResources().getDrawable(R.drawable.ic_plus_circle_outline_grey600_36dp);
+                originalIcon = view.getResources().getDrawable(R.drawable.ic_plus_circle_outline_grey600_36dp, null);
                 break;
 
         }

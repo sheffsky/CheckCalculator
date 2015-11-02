@@ -2,8 +2,6 @@ package ru.sheffsky.calculator;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-
 
 public class AddItemActivityTest extends ActivityInstrumentationTestCase2 {
 

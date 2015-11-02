@@ -7,14 +7,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
 
 import ru.sheffsky.calculator.db.DbUtils;
 import ru.sheffsky.calculator.db.ItemContract;
@@ -202,7 +199,7 @@ public class MainActivity extends ListActivity {
         TextView taskTextView = (TextView) v.findViewById(R.id.itemId);
         Integer itemId = Integer.parseInt(taskTextView.getText().toString());
 
-        DbUtils.changeQty(MainActivity.this, itemId, true);
+        DbUtils.changeQty(MainActivity.this, itemId, DbUtils.qtyAction.PLUS);
 
         refreshListView();
 
@@ -228,7 +225,7 @@ public class MainActivity extends ListActivity {
         TextView taskTextView = (TextView) v.findViewById(R.id.itemId);
         Integer itemId = Integer.parseInt(taskTextView.getText().toString());
 
-        DbUtils.changeQty(MainActivity.this, itemId, false);
+        DbUtils.changeQty(MainActivity.this, itemId, DbUtils.qtyAction.MINUS);
 
         refreshListView();
 

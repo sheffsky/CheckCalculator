@@ -6,64 +6,66 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class DbUtils {
 
-    public static void addOrUpdateItem(Context context, HashMap itemMap) {
+    public enum qtyAction {PLUS, MINUS}
+
+    public static Integer addOrUpdateItem(Context context, ItemContract.Values itemValues) {
+
+        if (itemValues == null) {
+            return -1;
+        }
 
         ItemDbHelper helper = new ItemDbHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        int valuesCount = 0;
+
         Integer itemId = -1;
-        if (!Objects.equals(itemMap.get(ItemContract.Columns._ID).toString(), "")) {
-            itemId = Integer.parseInt(itemMap.get(ItemContract.Columns._ID).toString());
-        }
+        if (itemValues.getItemId() != null) {
+            itemId = itemValues.getItemId();
 
-        if (itemId > 0) {
-            values.put(ItemContract.Columns._ID, itemId);
-        }
-
-        if (itemMap.get(ItemContract.Columns.ITEM) != null) {
-            values.put(ItemContract.Columns.ITEM, itemMap.get(ItemContract.Columns.ITEM).toString());
-        }
-
-        if (itemMap.get(ItemContract.Columns.PRICE) != null) {
-            try {
-                values.put(ItemContract.Columns.PRICE, Float.parseFloat(itemMap.get(ItemContract.Columns.PRICE).toString()));
-            } catch (NumberFormatException nfe) {
-                values.put(ItemContract.Columns.PRICE, 0);
+            if (itemId > 0) {
+                values.put(ItemContract.Columns._ID, itemId);
+                valuesCount++;
             }
         }
 
-        if (itemMap.get(ItemContract.Columns.QTY) != null) {
-            try {
-                values.put(ItemContract.Columns.QTY, Integer.parseInt(itemMap.get(ItemContract.Columns.QTY).toString()));
-            } catch (NumberFormatException nfe) {
-                values.put(ItemContract.Columns.QTY, 1);
-            }
+        if (itemValues.getItem() != null) {
+            values.put(ItemContract.Columns.ITEM, itemValues.getItem());
+            valuesCount++;
         }
 
-        if (itemMap.get(ItemContract.Columns.PERSONS) != null) {
-            try {
-                values.put(ItemContract.Columns.PERSONS, Integer.parseInt(itemMap.get(ItemContract.Columns.PERSONS).toString()));
-            } catch (NumberFormatException nfe) {
-                values.put(ItemContract.Columns.PERSONS, 1);
-            }
+        if (itemValues.getPrice() != null) {
+            values.put(ItemContract.Columns.PRICE, itemValues.getPrice());
+            valuesCount++;
         }
 
-        if (itemId > 0) {
-            db.update(ItemContract.TABLE, values, ItemContract.Columns._ID + "=" + itemId.toString(), null);
-        } else {
-            db.insertWithOnConflict(ItemContract.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (itemValues.getQty() != null) {
+            values.put(ItemContract.Columns.QTY, itemValues.getQty());
+            valuesCount++;
         }
+
+        if (itemValues.getPersons() != null) {
+            values.put(ItemContract.Columns.PERSONS, itemValues.getPersons());
+            valuesCount++;
+        }
+
+        if (valuesCount == 0) {
+            return -1;
+        }
+
+            if (itemId > 0) {
+                return db.update(ItemContract.TABLE, values, ItemContract.Columns._ID + "=" + itemId.toString(), null);
+            } else {
+                return ((int) db.insertWithOnConflict(ItemContract.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE));
+            }
 
     }
 
-    public static Map<String, String> getItemById(Context context, Integer itemId) {
+    public static ItemContract.Values getItemById(Context context, Integer itemId) {
 
         ItemDbHelper helper = new ItemDbHelper(context);
         SQLiteDatabase sqlDB = helper.getWritableDatabase();
@@ -72,22 +74,22 @@ public class DbUtils {
                 + " WHERE " + ItemContract.Columns._ID
                 + " = " + itemId.toString(), new String[]{});
 
-        Map<String, String> itemMap = new HashMap<>();
+        ItemContract.Values values = new ItemContract().new Values();
 
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
 
             cursor.moveToFirst();
 
-            itemMap.put(ItemContract.Columns.ITEM,      cursor.getString(cursor.getColumnIndex(ItemContract.Columns.ITEM)));
-            itemMap.put(ItemContract.Columns.PRICE,     cursor.getString(cursor.getColumnIndex(ItemContract.Columns.PRICE)));
-            itemMap.put(ItemContract.Columns.QTY,       cursor.getString(cursor.getColumnIndex(ItemContract.Columns.QTY)));
-            itemMap.put(ItemContract.Columns.PERSONS,   cursor.getString(cursor.getColumnIndex(ItemContract.Columns.PERSONS)));
+            values.setItem(cursor.getString(cursor.getColumnIndex(ItemContract.Columns.ITEM)));
+            values.setPrice(cursor.getFloat(cursor.getColumnIndex(ItemContract.Columns.PRICE)));
+            values.setQty(cursor.getInt(cursor.getColumnIndex(ItemContract.Columns.QTY)));
+            values.setPersons(cursor.getInt(cursor.getColumnIndex(ItemContract.Columns.PERSONS)));
 
         }
 
         cursor.close();
 
-        return itemMap;
+        return values;
 
     }
 
@@ -142,7 +144,7 @@ public class DbUtils {
         sqlDB.close();
     }
 
-    public static void changeQty(Context context, Integer itemId, Boolean isIncreased) {
+    public static void changeQty(Context context, Integer itemId, qtyAction action ) {
 
         ItemDbHelper helper = new ItemDbHelper(context);
         SQLiteDatabase sqlDB = helper.getWritableDatabase();
@@ -151,11 +153,10 @@ public class DbUtils {
                 ItemContract.TABLE,
                 ItemContract.Columns.QTY,
                 ItemContract.Columns.QTY,
-                isIncreased ? "+" : "-",
+                action == qtyAction.PLUS ? "+" : "-",
                 ItemContract.Columns._ID,
                 itemId);
         sqlDB.execSQL(sql);
-
 
 
     }
