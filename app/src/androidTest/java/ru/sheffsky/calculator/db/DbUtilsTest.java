@@ -133,11 +133,74 @@ public class DbUtilsTest extends AndroidTestCase {
 
     }
 
-    //TODO: add two items, check the sum
+    public void testGetTotalPrice() {
 
-    //TODO: add two items, remove one, check the sum
+        ItemContract.Values itemValues;
 
-    //TODO: add two items, remove all, check the sum
+        itemValues = new ItemContract().new Values();
+        itemValues.setPersons(1);
+        itemValues.setQty(3);
+        itemValues.setPrice((float) 200);
+
+        DbUtils.deleteAllItems(context);
+
+        DbUtils.addOrUpdateItem(context, itemValues);
+
+        double price = DbUtils.getTotalPrice(context);
+
+        assertEquals((double) 200*3, price);
+
+        itemValues.setPersons(3);
+        itemValues.setQty(2);
+        itemValues.setPrice((float) 321.15);
+
+        DbUtils.addOrUpdateItem(context, itemValues);
+
+        price = DbUtils.getTotalPrice(context);
+
+        assertEquals((double) 200*3 + 321.15*2/3, price);
+
+    }
+
+    public void testGetTotalPriceAfterDeletion() {
+
+        DbUtils.deleteAllItems(context);
+
+        ItemContract.Values itemValues;
+
+        itemValues = new ItemContract().new Values();
+        itemValues.setPersons(1);
+        itemValues.setQty(3);
+        itemValues.setPrice((float) 200);
+
+        DbUtils.deleteAllItems(context);
+
+        Integer itemId1 = DbUtils.addOrUpdateItem(context, itemValues);
+
+        double price = DbUtils.getTotalPrice(context);
+
+        assertEquals((double) 200 * 3, price);
+
+        itemValues.setPersons(3);
+        itemValues.setQty(2);
+        itemValues.setPrice((float) 321.15);
+
+        Integer itemId2 = DbUtils.addOrUpdateItem(context, itemValues);
+
+        DbUtils.deleteItemById(context, itemId1);
+
+        price = DbUtils.getTotalPrice(context);
+
+        assertEquals(321.15*2/3, price);
+
+        DbUtils.deleteItemById(context, itemId2);
+
+        price = DbUtils.getTotalPrice(context);
+
+        assertEquals((double) 0, price);
+
+    }
+
 
 
 }
