@@ -84,7 +84,7 @@
             android:id="@+id/quantityLayout"
             android:layout_alignEnd="@+id/newItemName"
             android:layout_alignStart="@+id/newItemName"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/qtyHeader"
@@ -137,7 +137,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    tools:ignore="id"
+                    tools:ignore="RelativeOverlap"
                     android:id="@+id/personQty"
                     android:labelFor="@id/personQty"
                     android:layout_width="35dp"
