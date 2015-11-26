@@ -83,7 +83,7 @@
             android:id="@+id/quantityLayout"
             android:layout_alignEnd="@+id/newItemName"
             android:layout_alignStart="@+id/newItemName"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/qtyHeader"
@@ -119,6 +119,21 @@
                     android:inputType="number"
                     android:textSize="40sp" />
 
+                <TextView
+                    android:id="@+id/dividerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dividerText"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:visibility="visible"
+                    android:singleLine="true"
+                    android:layout_marginRight="0dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/qtyNumber"
+                    android:layout_marginLeft="0dp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp" />
+
                 <EditText
                     android:id="@+id/personQty"
                     android:labelFor="@id/personQty"
@@ -136,20 +151,6 @@
                     android:layout_centerVertical="true"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/dividerText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dividerText"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:visibility="visible"
-                    android:singleLine="true"
-                    android:layout_marginRight="0dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/qtyNumber"
-                    android:layout_marginLeft="0dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="18sp" />
 
             </RelativeLayout>
 

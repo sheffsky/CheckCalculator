@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/itemPrice"
-            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
             android:layout_below="@+id/itemName"
             android:layout_alignParentStart="true"
             android:textSize="18sp"
@@ -52,7 +52,6 @@
             android:onClick="onPlusButtonClick"
             android:descendantFocusability="blocksDescendants"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="false"
             android:background="@android:color/transparent"
             android:contentDescription="@string/plusButtonDescription" />
 
@@ -65,7 +64,7 @@
             android:textSize="40sp"
             android:layout_alignParentTop="false"
             android:layout_toStartOf="@+id/plusButton"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_alignBottom="@+id/plusButton" />
 
     </RelativeLayout>
