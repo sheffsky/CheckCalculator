@@ -132,6 +132,7 @@
                     android:layout_toEndOf="@+id/qtyNumber"
                     android:layout_marginLeft="0dp"
                     android:textColor="@android:color/darker_gray"
+                    android:maxLength="1"
                     android:textSize="18sp" />
 
                 <EditText
