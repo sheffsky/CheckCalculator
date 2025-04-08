@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    namespace 'ru.sheffsky.calculator'
+    compileSdkVersion 35
+    buildToolsVersion "35.0.0"
 
     defaultConfig {
         applicationId "ru.sheffsky.calculator"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 35
         versionCode 10
         versionName "1.12"
     }
@@ -18,7 +19,14 @@ android {
         }
     }
 }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
+/*
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+*/

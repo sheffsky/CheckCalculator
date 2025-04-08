@@ -41,15 +41,14 @@ public class MainActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_remove_all:
-                removeAll();
-                return true;
-            case R.id.action_add_item:
-                showAddNewItem(getListView());
-                return true;
-            default:
-                return false;
+        if (item.getItemId() == R.id.action_remove_all) {
+            removeAll();
+            return true;
+        } else if (item.getItemId() == R.id.action_add_item) {
+            showAddNewItem(getListView());
+            return true;
+        } else {
+            return false;
         }
     }
 
