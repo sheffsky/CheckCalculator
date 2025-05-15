@@ -1,21 +1,18 @@
-package ru.sheffsky.calculator;
+package de.sheffsky.calculator;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import ru.sheffsky.calculator.db.ItemContract;
+import de.sheffsky.calculator.db.ItemContract;
 
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 

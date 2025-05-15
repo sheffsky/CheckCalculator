@@ -1,4 +1,4 @@
-package ru.sheffsky.calculator;
+package de.sheffsky.calculator;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -15,8 +15,8 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import ru.sheffsky.calculator.db.ItemContract;
-import ru.sheffsky.calculator.db.ItemDbHelper;
+import de.sheffsky.calculator.db.ItemContract;
+import de.sheffsky.calculator.db.ItemDbHelper;
 
 
 public class AddItemActivity extends Activity {
@@ -91,8 +91,11 @@ public class AddItemActivity extends Activity {
     }
 
     private void hideKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public void showQtyPicker(View view) {

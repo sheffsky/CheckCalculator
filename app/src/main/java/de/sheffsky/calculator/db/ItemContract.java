@@ -1,4 +1,4 @@
-package ru.sheffsky.calculator.db;
+package de.sheffsky.calculator.db;
 
 import android.provider.BaseColumns;
 

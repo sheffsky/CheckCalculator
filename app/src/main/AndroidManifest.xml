@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.sheffsky.calculator">
+    package="de.sheffsky.calculator">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Material">
         <activity
-            android:name="ru.sheffsky.calculator.MainActivity"
+            android:name="de.sheffsky.calculator.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
             android:label="@string/app_name">
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ru.sheffsky.calculator.AddItemActivity"
+            android:name="de.sheffsky.calculator.AddItemActivity"
             android:label="@string/title_activity_add_item"
             android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@android:style/Theme.Dialog" />

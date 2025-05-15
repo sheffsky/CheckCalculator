@@ -1,4 +1,4 @@
-package ru.sheffsky.calculator;
+package de.sheffsky.calculator;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +14,8 @@ import android.widget.*;
 
 import java.math.BigDecimal;
 
-import ru.sheffsky.calculator.db.ItemContract;
-import ru.sheffsky.calculator.db.ItemDbHelper;
+import de.sheffsky.calculator.db.ItemContract;
+import de.sheffsky.calculator.db.ItemDbHelper;
 
 
 public class MainActivity extends ListActivity {
