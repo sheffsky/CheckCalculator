@@ -16,11 +16,13 @@ public class ItemDbHelper extends SQLiteOpenHelper {
                 String.format("CREATE TABLE %s (" +
                                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                 "%s INTEGER DEFAULT 1, " +
-                                "%s DOUBLE DEFAULT 0," +
+                                "%s DOUBLE DEFAULT 0, " +
+                                "%s INTEGER DEFAULT 1, " +
                                 "%s TEXT)",
                         ItemContract.TABLE,
                         ItemContract.Columns.QTY,
                         ItemContract.Columns.PRICE,
+                        ItemContract.Columns.PERSONS,
                         ItemContract.Columns.ITEM);
 
         sqlDB.execSQL(sqlQuery);
@@ -28,8 +30,9 @@ public class ItemDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqlDB, int i, int i2) {
-        sqlDB.execSQL("DROP TABLE IF EXISTS " + ItemContract.TABLE);
-        onCreate(sqlDB);
+        if (i <= 7) {
+            sqlDB.execSQL("ALTER TABLE " + ItemContract.TABLE + " ADD COLUMN " + ItemContract.Columns.PERSONS + " INTEGER DEFAULT 1");
+        }
     }
 }
 
