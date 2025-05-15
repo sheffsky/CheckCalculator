@@ -6,20 +6,28 @@ import android.text.Spanned;
 public class InputFilterMinMax implements InputFilter {
 
     private int min, max;
+    private boolean isDividerAllowed;
 
-    public InputFilterMinMax(String min, String max) {
-        this.min = Integer.parseInt(min);
-        this.max = Integer.parseInt(max);
+    public InputFilterMinMax(Integer min, Integer max, boolean isDividerAllowed) {
+        this.min = min;
+        this.max = max;
+        this.isDividerAllowed = isDividerAllowed;
     }
 
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            int input = Integer.parseInt(dest.toString() + source.toString());
+            // Remove the string out of destination that is to be replaced
+            String newVal = dest.toString().substring(0, dstart) + dest.toString().substring(dend, dest.toString().length());
+            // Add the new string in
+            newVal = newVal.substring(0, dstart) + source.toString() + newVal.substring(dstart, newVal.length());
+            int input = Integer.parseInt(newVal);
             if (isInRange(min, max, input))
                 return null;
         } catch (NumberFormatException nfe) {
-            return null;
+            if (isDividerAllowed) {
+                return null;
+            }
         }
         return "";
     }
