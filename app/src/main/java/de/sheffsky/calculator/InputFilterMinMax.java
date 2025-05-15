@@ -1,4 +1,4 @@
-package ru.sheffsky.calculator;
+package de.sheffsky.calculator;
 
 import android.text.InputFilter;
 import android.text.Spanned;

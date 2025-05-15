@@ -1,4 +1,4 @@
-package ru.sheffsky.calculator;
+package de.sheffsky.calculator;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -12,10 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 
+import java.math.BigDecimal;
 
-import ru.sheffsky.calculator.db.DbUtils;
-import ru.sheffsky.calculator.db.ItemContract;
-import ru.sheffsky.calculator.db.ItemDbHelper;
+import de.sheffsky.calculator.db.ItemContract;
+import de.sheffsky.calculator.db.ItemDbHelper;
 
 
 public class MainActivity extends ListActivity {
@@ -33,12 +33,6 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-        //super.onBackPressed(); // Comment this super call to avoid calling finish()
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -46,15 +40,14 @@ public class MainActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_remove_all:
-                removeAll();
-                return true;
-            case R.id.action_add_item:
-                showAddNewItem(getListView());
-                return true;
-            default:
-                return false;
+        if (item.getItemId() == R.id.action_remove_all) {
+            removeAll();
+            return true;
+        } else if (item.getItemId() == R.id.action_add_item) {
+            showAddNewItem(getListView());
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -72,7 +65,12 @@ public class MainActivity extends ListActivity {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
 
-                        DbUtils.deleteAllItems(MainActivity.this);
+                        String sql = String.format("DELETE FROM %s",
+                                ItemContract.TABLE);
+
+                        helper = new ItemDbHelper(MainActivity.this);
+                        SQLiteDatabase sqlDB = helper.getWritableDatabase();
+                        sqlDB.execSQL(sql);
                         createListView();
                     }
                 })
@@ -86,8 +84,7 @@ public class MainActivity extends ListActivity {
                 new String[]{ItemContract.Columns._ID,
                         ItemContract.Columns.ITEM,
                         ItemContract.Columns.QTY,
-                        ItemContract.Columns.PRICE,
-                        ItemContract.Columns.PERSONS},
+                        ItemContract.Columns.PRICE},
                 null, null, null, null, null);
 
         this.cursorAdapter.setSelectedItemId(selectedItemId);
@@ -103,8 +100,7 @@ public class MainActivity extends ListActivity {
                 new String[]{ItemContract.Columns._ID,
                         ItemContract.Columns.ITEM,
                         ItemContract.Columns.QTY,
-                        ItemContract.Columns.PRICE,
-                        ItemContract.Columns.PERSONS},
+                        ItemContract.Columns.PRICE},
                 null, null, null, null, null);
 
 
@@ -126,17 +122,32 @@ public class MainActivity extends ListActivity {
 
         updatePrice();
 
-        sqlDB.close();
-
     }
 
     private void updatePrice() {
+        SQLiteDatabase sqlDB;
+        Cursor cursor;
+        Double totalPrice = (double) 0;
 
-        Double totalPrice = DbUtils.getTotalPrice(MainActivity.this);
+        String sql = String.format("SELECT SUM(%s * %s) FROM %s",
+                ItemContract.Columns.PRICE,
+                ItemContract.Columns.QTY,
+                ItemContract.TABLE);
+
+
+        helper = new ItemDbHelper(MainActivity.this);
+        sqlDB = helper.getReadableDatabase();
+        cursor = sqlDB.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+
+            BigDecimal bd = new BigDecimal(Double.toString(cursor.getFloat(0)));
+            bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+            totalPrice = bd.doubleValue();
+
+        }
 
         TextView totalPriceView = (TextView) findViewById(R.id.totalPrice);
         totalPriceView.setText(getString(R.string.totalPriceText) + " " + totalPrice.toString());
-
     }
 
 
@@ -152,8 +163,15 @@ public class MainActivity extends ListActivity {
                         TextView taskTextView = (TextView) v.findViewById(R.id.itemId);
                         Integer itemId = Integer.parseInt(taskTextView.getText().toString());
 
-                        DbUtils.deleteItemById(MainActivity.this, itemId);
+                        String sql = String.format("DELETE FROM %s WHERE %s = '%s'",
+                                ItemContract.TABLE,
+                                ItemContract.Columns._ID,
+                                itemId);
 
+
+                        helper = new ItemDbHelper(MainActivity.this);
+                        SQLiteDatabase sqlDB = helper.getWritableDatabase();
+                        sqlDB.execSQL(sql);
                         refreshListView();
                     }
                 })
@@ -193,13 +211,35 @@ public class MainActivity extends ListActivity {
     }
 
     public void onPlusButtonClick(View view) {
-
         View v = (View) view.getParent().getParent();
 
         TextView taskTextView = (TextView) v.findViewById(R.id.itemId);
         Integer itemId = Integer.parseInt(taskTextView.getText().toString());
 
-        DbUtils.changeQty(MainActivity.this, itemId, DbUtils.qtyAction.PLUS);
+        TextView qtyView = (TextView) v.findViewById(R.id.itemQty);
+        int qty;
+        if (qtyView.getText().toString().equals("")) {
+            qty = 1;
+        } else {
+            qty = Integer.parseInt(qtyView.getText().toString());
+            qty++;
+        }
+
+        if (qty > 99) {
+            return;
+        }
+
+        String sql = String.format("UPDATE %s SET %s = %s WHERE %s = '%s'",
+                ItemContract.TABLE,
+                ItemContract.Columns.QTY,
+                qty,
+                ItemContract.Columns._ID,
+                itemId);
+
+
+        helper = new ItemDbHelper(MainActivity.this);
+        SQLiteDatabase sqlDB = helper.getWritableDatabase();
+        sqlDB.execSQL(sql);
 
         refreshListView();
 
@@ -211,21 +251,57 @@ public class MainActivity extends ListActivity {
         TextView itemIdTextView = (TextView) v.findViewById(R.id.itemId);
         Integer itemId = Integer.parseInt(itemIdTextView.getText().toString());
 
+        TextView itemQtyTextView = (TextView) v.findViewById(R.id.itemQty);
+        Integer itemQty = Integer.parseInt(itemQtyTextView.getText().toString());
+
+        TextView itemNameTextView = (TextView) v.findViewById(R.id.itemName);
+        String itemName = itemNameTextView.getText().toString();
+
+        TextView itemPriceTextView = (TextView) v.findViewById(R.id.itemPrice);
+
+        String itemPrice = itemPriceTextView.getText().toString();
+
         Intent intent = new Intent(this, AddItemActivity.class);
+
         intent.putExtra("itemId", itemId);
+        intent.putExtra("itemName", itemName);
+        intent.putExtra("itemPrice", itemPrice);
+        intent.putExtra("itemQty", itemQty);
 
         startActivity(intent);
 
     }
 
     public void onMinusButtonClick(View view) {
-
         View v = (View) view.getParent().getParent();
 
         TextView taskTextView = (TextView) v.findViewById(R.id.itemId);
         Integer itemId = Integer.parseInt(taskTextView.getText().toString());
 
-        DbUtils.changeQty(MainActivity.this, itemId, DbUtils.qtyAction.MINUS);
+        TextView qtyView = (TextView) v.findViewById(R.id.itemQty);
+        int qty;
+        if (qtyView.getText().toString().equals("")) {
+            qty = 0;
+        } else {
+            qty = Integer.parseInt(qtyView.getText().toString());
+            qty--;
+        }
+
+        if (qty < 1) {
+            return;
+        }
+
+        String sql = String.format("UPDATE %s SET %s = %s WHERE %s = '%s'",
+                ItemContract.TABLE,
+                ItemContract.Columns.QTY,
+                qty,
+                ItemContract.Columns._ID,
+                itemId);
+
+
+        helper = new ItemDbHelper(MainActivity.this);
+        SQLiteDatabase sqlDB = helper.getWritableDatabase();
+        sqlDB.execSQL(sql);
 
         refreshListView();
 

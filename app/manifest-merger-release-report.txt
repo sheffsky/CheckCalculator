@@ -23,8 +23,8 @@ ADDED from AndroidManifest.xml:5:5
 		ADDED from AndroidManifest.xml:7:9
 	android:theme
 		ADDED from AndroidManifest.xml:9:9
-activity#ru.sheffsky.calculator.MainActivity
-ADDED from AndroidManifest.xml:10:5
+activity#de.sheffsky.calculator.MainActivity
+ADDED from AndroidManifest.xml:10:9
 	android:windowSoftInputMode
 		ADDED from AndroidManifest.xml:12:13
 	android:label
@@ -41,7 +41,7 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:16:17
 	android:name
 		ADDED from AndroidManifest.xml:16:27
-activity#ru.sheffsky.calculator.AddItemActivity
+activity#de.sheffsky.calculator.AddItemActivity
 ADDED from AndroidManifest.xml:19:9
 	android:windowSoftInputMode
 		ADDED from AndroidManifest.xml:22:13
