@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
@@ -120,6 +121,18 @@ public class MainActivity extends ListActivity {
 
         this.setListAdapter(listAdapter);
 
+        getListView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (getListView().pointToPosition((int) event.getX(), (int) event.getY()) == AdapterView.INVALID_POSITION) {
+                        onItemOutsideClick(v);
+                    }
+                }
+                return false;
+            }
+        });
+
         updatePrice();
 
     }
@@ -129,9 +142,11 @@ public class MainActivity extends ListActivity {
         Cursor cursor;
         Double totalPrice = (double) 0;
 
-        String sql = String.format("SELECT SUM(%s * %s) FROM %s",
+        // Use PERSONS column for calculation
+        String sql = String.format("SELECT SUM(%s * %s / %s) FROM %s",
                 ItemContract.Columns.PRICE,
                 ItemContract.Columns.QTY,
+                ItemContract.Columns.PERSONS,
                 ItemContract.TABLE);
 
 
@@ -148,6 +163,7 @@ public class MainActivity extends ListActivity {
 
         TextView totalPriceView = (TextView) findViewById(R.id.totalPrice);
         totalPriceView.setText(getString(R.string.totalPriceText) + " " + totalPrice.toString());
+        cursor.close();
     }
 
 
@@ -202,10 +218,15 @@ public class MainActivity extends ListActivity {
     }
 
     public void onItemOutsideClick(View view) {
-        if (lastShownAdditionalButtonsLayout != null) {
+        if (selectedItemId != 0) {
             selectedItemId = 0;
-            this.cursorAdapter.setSelectedItemId(selectedItemId);
-            lastShownAdditionalButtonsLayout.setVisibility(View.GONE);
+            if (this.cursorAdapter != null) {
+                this.cursorAdapter.setSelectedItemId(selectedItemId);
+            }
+            if (lastShownAdditionalButtonsLayout != null) {
+                lastShownAdditionalButtonsLayout.setVisibility(View.GONE);
+                lastShownAdditionalButtonsLayout = null;
+            }
             refreshListView();
         }
     }

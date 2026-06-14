@@ -140,6 +140,8 @@ public class AddItemActivity extends Activity {
         values.put(ItemContract.Columns.ITEM, itemName);
         values.put(ItemContract.Columns.PRICE, itemPrice);
         values.put(ItemContract.Columns.QTY, itemQty);
+        // Ensure PERSONS is set to 1 if not specified
+        values.put(ItemContract.Columns.PERSONS, 1);
 
         db.insertWithOnConflict(ItemContract.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 
