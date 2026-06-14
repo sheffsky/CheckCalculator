@@ -18,7 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/res/resValues/androidTest/debug">
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/res/resValues/androidTest/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/res/resValues/androidTest/debug" type="java-test-resource" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/src/androidTest">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/src/androidTest/java" isTestSource="true" />
@@ -27,6 +27,9 @@
     <orderEntry type="jdk" jdkName="Android API 35, extension level 13 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CheckCalculator.app.main" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: /Users/sheffsky/Library/Android/sdk/platforms/android-35/optional/android.test.mock.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: /Users/sheffsky/Library/Android/sdk/platforms/android-35/optional/android.test.base.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: /Users/sheffsky/Library/Android/sdk/platforms/android-35/optional/android.test.runner.jar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="CheckCalculator.app.main" />
 </module>

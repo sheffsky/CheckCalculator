@@ -57,7 +57,7 @@ public class AddItemActivity extends Activity {
         });
 
         EditText itemPriceEdit = (EditText) findViewById(R.id.newItemPrice);
-        itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax("1", "999999")});
+        itemPriceEdit.setFilters(new InputFilter[]{new InputFilterMinMax(1, 999999, true)});
         itemPriceEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

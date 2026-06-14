@@ -1,4 +1,4 @@
-package ru.sheffsky.calculator.utils;
+package de.sheffsky.calculator.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageButton;
 
-import ru.sheffsky.calculator.R;
+import de.sheffsky.calculator.R;
 
 public class InterfaceUtils {
 

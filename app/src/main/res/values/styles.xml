@@ -1,8 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.Dialog" parent="android:Theme.Holo.Dialog">
     </style>
 
     <style name="Widget.NumberPicker" parent="android:TextAppearance.Holo.Widget">

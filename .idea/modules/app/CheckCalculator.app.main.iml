@@ -27,5 +27,8 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 35, extension level 13 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: /Users/sheffsky/Library/Android/sdk/platforms/android-35/optional/android.test.mock.jar" level="project" />
+    <orderEntry type="library" name="Gradle: /Users/sheffsky/Library/Android/sdk/platforms/android-35/optional/android.test.base.jar" level="project" />
+    <orderEntry type="library" name="Gradle: /Users/sheffsky/Library/Android/sdk/platforms/android-35/optional/android.test.runner.jar" level="project" />
   </component>
 </module>
